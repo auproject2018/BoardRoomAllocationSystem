@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,9 @@ import org.springframework.stereotype.Repository;
 import com.boardroomproject.model.RequestRoom;
 import com.boardroomproject.model.User;
 
-@Repository("RoomRequestDao")
+
 public class RoomRequestDaoImpl implements RoomRequestDao{
+	@Autowired
 	private JdbcTemplate jdbcTemplateObject;
 	private static final String FORMAT = "dd/MM/yyyy";
 	private static final Logger logger =

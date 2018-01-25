@@ -15,18 +15,12 @@
 
 	<mvc:annotation-driven />
 	
-	<context:annotation-config />
- 	<context:component-scan base-package="com.au.BoardRoomAllocation.config" />
- 	<context:component-scan base-package="com.boardroomproject.model" />
-  <context:component-scan base-package="com.boardroomproject.dao" />
-  
-  <context:component-scan base-package="com.boardroomproject.services" />
+	
   <context:component-scan base-package="com.boardroomproject.controller" />
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/boardRoomAllocationDB" />
+		<property name="url" value="jdbc:mysql://localhost:3306/boardRoomAllocationDB" />
 		<property name="username" value="root" />
 		<property name="password" value="Acc0@user1" />
 	</bean>

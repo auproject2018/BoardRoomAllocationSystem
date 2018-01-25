@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,11 +14,12 @@ import org.springframework.stereotype.Repository;
 
 import com.boardroomproject.model.User;
 
-@Repository("UserDao")
+
 public class UserDaoImpl implements UserDao{
 	
-	
+	@Autowired
 	private JdbcTemplate jdbcTemplateObject;
+	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplateObject) {  
 	    this.jdbcTemplateObject = jdbcTemplateObject;  
 	}  
@@ -62,7 +64,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	@Override
 	public User validateUser(User user) {
-		String validateUser = "select 1 from user where userName=? and password= ? and isArchived = ?";
+		String validateUser = "select * from user where userName=? and password= ? and isArchived = ?";
 		
 		return jdbcTemplateObject.queryForObject(validateUser, new Object[]{user.getUserName(),user.getPassword(),"N"},new BeanPropertyRowMapper<User>(User.class));
 	}

@@ -47,7 +47,7 @@ public class UserController {
 	       if(validatedUser!=null)
 	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.OK);
 	       else 
-	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.CONFLICT);
+	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.OK);
 	       
 	    }
 	 
