@@ -35,4 +35,5 @@ public interface UserDao {
      */
 	public User getUserById(int userId);
 	public void changeUserType(int userId);
+	public User validateUser(User user);
 }

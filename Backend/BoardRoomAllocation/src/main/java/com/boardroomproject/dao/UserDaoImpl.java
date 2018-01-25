@@ -3,6 +3,8 @@ package com.boardroomproject.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +15,8 @@ import com.boardroomproject.model.User;
 
 @Repository("UserDao")
 public class UserDaoImpl implements UserDao{
+	
+	
 	private JdbcTemplate jdbcTemplateObject;
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplateObject) {  
 	    this.jdbcTemplateObject = jdbcTemplateObject;  
@@ -55,6 +59,12 @@ public class UserDaoImpl implements UserDao{
 	public void changeUserType(int userId) {
 		String updateUser = "update user set type = ? where id = ?";
 	    jdbcTemplateObject.update(updateUser, "ADMIN", userId);
+	}
+	@Override
+	public User validateUser(User user) {
+		String validateUser = "select 1 from user where userName=? and password= ? and isArchived = ?";
+		
+		return jdbcTemplateObject.queryForObject(validateUser, new Object[]{user.getUserName(),user.getPassword(),"N"},new BeanPropertyRowMapper<User>(User.class));
 	}
 	
 }

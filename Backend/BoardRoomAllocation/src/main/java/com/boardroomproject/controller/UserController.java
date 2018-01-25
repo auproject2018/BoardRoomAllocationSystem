@@ -23,6 +23,12 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	 @RequestMapping(value = "hello")
+	    public void create() {
+	       
+	        System.out.println("dfghhj" );
+	    }
+	
 	
 	 @RequestMapping(value = "user", method = RequestMethod.POST)
 	    public ResponseEntity<Void> createUser(@RequestBody User user) {
@@ -35,6 +41,16 @@ public class UserController {
 	        userService.saveUser(user);
 			return null;
 	    }
+	 @RequestMapping(value = "login", method = RequestMethod.POST)
+	    public ResponseEntity<User> loginValidate(@RequestBody User user) {
+	       User validatedUser = userService.validateUser(user);
+	       if(validatedUser!=null)
+	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.OK);
+	       else 
+	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.CONFLICT);
+	       
+	    }
+	 
 	 
 	 @RequestMapping(value = "/user/{userId}", method = RequestMethod.PUT)
 	    public ResponseEntity<User> updateUser(@PathVariable("userId") int userId, @RequestBody User user) {

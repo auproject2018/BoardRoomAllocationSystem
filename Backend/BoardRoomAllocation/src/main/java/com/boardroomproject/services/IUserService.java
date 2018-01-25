@@ -13,4 +13,5 @@ public interface IUserService {
 	public void updateUser(User user);
 	public User getUserById(int userId);
 	public void changeUserType(int userId);
+	public User validateUser(User user);
 }

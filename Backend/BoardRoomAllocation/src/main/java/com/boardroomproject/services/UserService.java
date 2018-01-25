@@ -43,4 +43,10 @@ public class UserService implements IUserService {
 		userDao.changeUserType(userId);
 	}
 
+	@Override
+	public User validateUser(User user) {
+		return userDao.validateUser(user);
+	}
+	
+	
 }
