@@ -38,9 +38,9 @@ public class UserController {
 	    public ResponseEntity<User> loginValidate(@RequestBody User user) {
 	       User validatedUser = userService.validateUser(user);
 	       if(validatedUser!=null)
-	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.CONFLICT);
-	       else 
 	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.OK);
+	       else 
+	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.CONFLICT);
 	       
 	    }
 	 

@@ -32,7 +32,7 @@ public class RoomDaoImpl implements RoomDao{
 	            Room r=new Room(); 
 	            r.setrId(Integer.parseInt(rs.getString(1)));
 	            r.setrName(rs.getString(2));
-	            r.setlId(Integer.parseInt(rs.getString(3)));
+	            r.setlId(Integer.parseInt(rs.getString(4)));
 	            return r;  
 	        }  
 	    },lId,"N"); 
