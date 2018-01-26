@@ -22,29 +22,22 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	 @RequestMapping(value = "hello")
-	    public void create() {
-	       
-	        System.out.println("dfghhj" );
-	    }
-	
-	
 	 @RequestMapping(value = "user", method = RequestMethod.POST)
 	    public ResponseEntity<Void> createUser(@RequestBody User user) {
 	       
-	        if (userService.isUserExist(user)) {
+	       if (userService.isUserExist(user)) {
 
 	            return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 	        }
-	  
+	 
 	        userService.saveUser(user);
-			return null;
+	        return new ResponseEntity<Void>(HttpStatus.CREATED);
 	    }
 	 @RequestMapping(value = "login", method = RequestMethod.POST)
 	    public ResponseEntity<User> loginValidate(@RequestBody User user) {
 	       User validatedUser = userService.validateUser(user);
 	       if(validatedUser!=null)
-	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.OK);
+	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.CONFLICT);
 	       else 
 	    	   return new ResponseEntity<User>(validatedUser, HttpStatus.OK);
 	       

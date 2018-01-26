@@ -7,12 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.boardroomproject.model.User;
 
 
@@ -31,7 +30,7 @@ public class UserDaoImpl implements UserDao{
 	public void saveUser(User user){
 		String saveUser = "insert into User (fName,lName,userName,dob,password,contact,address,gender,location,type,isArchived) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		user.setType("USER");
-	    jdbcTemplateObject.update( saveUser, user.getfName(), user.getlName(), user.getDob(), user.getPassword(), user.getContact(), user.getAddress(), user.getGender(), user.getLocation(), user.getType(),"N");
+	    jdbcTemplateObject.update( saveUser, user.getfName(), user.getlName(), user.getUserName(),user.getDob(), user.getPassword(), user.getContact(), user.getAddress(), Character.toString(user.getGender()), user.getLocation(), user.getType(),"N");
 	}
 	@Override
 	public void deleteUserById(int id){
@@ -45,9 +44,16 @@ public class UserDaoImpl implements UserDao{
 	}
 	@Override
 	public boolean isUserExist(User user) {
-		String checkExist = "select 1 from user where userId = ? and isArchived = ?";
-		User u =  jdbcTemplateObject.queryForObject(checkExist, new Object[]{user.getUserId(),"N"},new BeanPropertyRowMapper<User>(User.class));
-		return u!=null;
+		String checkExist = "select * from user where userName = ? and isArchived = ?";
+		
+		User u;
+		try {
+			u = jdbcTemplateObject.queryForObject(checkExist, new Object[] { user.getUserName(), "N" },
+					new BeanPropertyRowMapper<User>(User.class));
+		} catch (EmptyResultDataAccessException e) {
+			return false;
+		}
+		return true;
 	}
 	@Override
 	public List<User> getUserByLocation(int lid) {
@@ -76,19 +82,24 @@ public class UserDaoImpl implements UserDao{
 	}
 	@Override
 	public User getUserById(int userId) {
-		String checkExist = "select 1 from user where userId = ? and isArchived = ?";
+		String checkExist = "select 1 from user where userId  = ? and isArchived = ?";
 		return jdbcTemplateObject.queryForObject(checkExist, new Object[]{userId,"N"},new BeanPropertyRowMapper<User>(User.class));
 	}
 	@Override
 	public void changeUserType(int userId) {
-		String updateUser = "update user set type = ? where userId = ?";
+		String updateUser = "update user set type = ? where userId  = ?";
 	    jdbcTemplateObject.update(updateUser, "ADMIN", userId);
 	}
 	@Override
 	public User validateUser(User user) {
 		String validateUser = "select * from user where userName=? and password= ? and isArchived = ?";
-		
-		return jdbcTemplateObject.queryForObject(validateUser, new Object[]{user.getUserName(),user.getPassword(),"N"},new BeanPropertyRowMapper<User>(User.class));
+		User ValidUser;
+		try {
+			ValidUser =jdbcTemplateObject.queryForObject(validateUser, new Object[]{user.getUserName(),user.getPassword(),"N"},new BeanPropertyRowMapper<User>(User.class));
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+		return ValidUser;
 	}
 	
 }
