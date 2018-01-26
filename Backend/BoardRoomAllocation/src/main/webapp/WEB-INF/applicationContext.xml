@@ -41,10 +41,7 @@
   </bean>
 <bean id="requestDAO" class="com.boardroomproject.dao.RoomRequestDaoImpl">
   </bean> 
-	
-
-
-
+  
 	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
 </beans>
