@@ -1,10 +1,8 @@
 package com.boardroomproject.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.boardroomproject.model.RequestRoom;
-import com.boardroomproject.model.User;
 
 public interface RoomRequestDao {
 	public void createRequest(RequestRoom requestRoom); 
