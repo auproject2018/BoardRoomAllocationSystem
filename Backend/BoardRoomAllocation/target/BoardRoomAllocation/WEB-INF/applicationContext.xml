@@ -13,24 +13,33 @@
 
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
-	
+
 	<context:component-scan base-package="com.au.BoardRoomAllocation.config" />
 	<context:annotation-config />
 	<context:component-scan base-package="com.boardroomproject.model" />
-	<context:component-scan base-package="com.boardroomproject.dao" />
-
 	<context:component-scan base-package="com.boardroomproject.services" />
 	<context:component-scan base-package="com.boardroomproject.controller" />
 
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
 			value="jdbc:mysql://localhost:3306/boardRoomAllocationDB" />
 		<property name="username" value="root" />
 		<property name="password" value="Acc0@user1" />
 	</bean>
-
+	
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+  <property name="dataSource" ref="dataSource" /> 
+  </bean>
+  <bean id="roomDAO" class="com.boardroomproject.dao.RoomDaoImpl">
+  </bean>
+  <bean id="locationDAO" class="com.boardroomproject.dao.LocationDaoImpl">
+  </bean>
+  <bean id="userDAO" class="com.boardroomproject.dao.UserDaoImpl">
+  </bean>
+<bean id="requestDAO" class="com.boardroomproject.dao.RoomRequestDaoImpl">
+  </bean> 
+  
 	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
 </beans>

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,11 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	
+	 @RequestMapping(value = "hello", method = RequestMethod.POST)
+	    public void he() {
+		 System.out.println("gh");
+	    }
 	 @RequestMapping(value = "user", method = RequestMethod.POST)
 	    public ResponseEntity<Void> createUser(@RequestBody User user) {
 	       
@@ -70,13 +74,11 @@ public class UserController {
 	    }
 
 
-	 @RequestMapping(value = "/user/{lId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	    public ResponseEntity<List<User> >getUserByLocation(@PathVariable("lId") int lId) {
-	       List<User> users = userService.getUserByLocation(lId);
-	        if (users.isEmpty()) {
-	            return new ResponseEntity<List<User> >(HttpStatus.NOT_FOUND);
-	        }
-	       return new ResponseEntity<List<User> >(users, HttpStatus.OK);
+	 @RequestMapping(value = "/users/{lId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    public List<User> getUserByLocation(@PathVariable("lId") int lId) {
+	     
+	       
+	       return userService.getUserByLocation(lId);
 	        
 	    }
 	 

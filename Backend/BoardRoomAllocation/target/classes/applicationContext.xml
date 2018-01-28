@@ -17,8 +17,6 @@
 	<context:component-scan base-package="com.au.BoardRoomAllocation.config" />
 	<context:annotation-config />
 	<context:component-scan base-package="com.boardroomproject.model" />
-	<context:component-scan base-package="com.boardroomproject.dao" />
-
 	<context:component-scan base-package="com.boardroomproject.services" />
 	<context:component-scan base-package="com.boardroomproject.controller" />
 
@@ -41,10 +39,7 @@
   </bean>
 <bean id="requestDAO" class="com.boardroomproject.dao.RoomRequestDaoImpl">
   </bean> 
-	
-
-
-
+  
 	<mvc:resources mapping="/resources/**" location="/resources/"></mvc:resources>
 
 </beans>

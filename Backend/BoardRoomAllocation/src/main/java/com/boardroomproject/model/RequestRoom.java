@@ -15,6 +15,7 @@ public class RequestRoom {
 	private Date startTime;
 	private Date endTime;
 	private String status;
+	private char isArchived;
 	
 	public String getStatus() {
 		return status;
@@ -81,6 +82,12 @@ public class RequestRoom {
 	}
 	public void setPurposeOfBooking(String purposeOfBooking) {
 		this.purposeOfBooking = purposeOfBooking;
+	}
+	public char getIsArchived() {
+		return isArchived;
+	}
+	public void setIsArchived(char isArchived) {
+		this.isArchived = isArchived;
 	} 
 
 }

@@ -35,12 +35,9 @@ public class RoomController {
 	    }
 	 
 	 @RequestMapping(value = "/{lId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	    public ResponseEntity<List<Room> >getRoomByLocation(@PathVariable("lId") int lId) {
-	       List<Room> rooms = roomService.getRoomByLocation(lId);
-	        if (rooms.isEmpty()) {
-	            return new ResponseEntity<List<Room> >(HttpStatus.NOT_FOUND);
-	        }
-	       return new ResponseEntity<List<Room> >(rooms, HttpStatus.OK);
+	    public List<Room> getRoomByLocation(@PathVariable("lId") int lId) {
+	       
+	       return roomService.getRoomByLocation(lId);
 	        
 	    }
 }
