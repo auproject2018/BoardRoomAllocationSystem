@@ -2,11 +2,7 @@ package com.boardroomproject.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -19,9 +15,6 @@ public class UserDaoImpl implements UserDao{
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplateObject;
-	private static final String FORMAT = "dd/MM/yyyy";
-	private static final Logger logger =
-	        Logger.getLogger(UserDaoImpl.class.getName());
 	
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplateObject) {  
 	    this.jdbcTemplateObject = jdbcTemplateObject;  
@@ -46,9 +39,8 @@ public class UserDaoImpl implements UserDao{
 	public boolean isUserExist(User user) {
 		String checkExist = "select * from user where userName = ? and isArchived = ?";
 		
-		User u;
 		try {
-			u = jdbcTemplateObject.queryForObject(checkExist, new Object[] { user.getUserName(), "N" },
+			jdbcTemplateObject.queryForObject(checkExist, new Object[] { user.getUserName(), "N" },
 					new BeanPropertyRowMapper<User>(User.class));
 		} catch (EmptyResultDataAccessException e) {
 			return false;
@@ -89,13 +81,13 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public User validateUser(User user) {
 		String validateUser = "select * from user where userName=? and password= ? and isArchived = ?";
-		User ValidUser;
+		User validUser;
 		try {
-			ValidUser =jdbcTemplateObject.queryForObject(validateUser, new Object[]{user.getUserName(),user.getPassword(),"N"},new BeanPropertyRowMapper<User>(User.class));
+			validUser =jdbcTemplateObject.queryForObject(validateUser, new Object[]{user.getUserName(),user.getPassword(),"N"},new BeanPropertyRowMapper<User>(User.class));
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
-		return ValidUser;
+		return validUser;
 	}
 	
 }

@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import com.boardroomproject.model.RequestRoom;
-import com.boardroomproject.model.User;
 
 
 public class RoomRequestDaoImpl implements RoomRequestDao{
@@ -38,8 +36,8 @@ public class RoomRequestDaoImpl implements RoomRequestDao{
 	}
 
 	@Override
-	public List<RequestRoom> getRequestByDateNLocation(int lId, Date date) {
-		return jdbcTemplateObject.query("select * from RequestRoom where lId = ? and dateOfBooking = ? isArchived = ?",new RowMapper<RequestRoom>(){  
+	public List<RequestRoom> getRequestByLocation(int lId) {
+		return jdbcTemplateObject.query("select * from RequestRoom where lId = ? and isArchived = ? order by dateOfBooking Desc",new RowMapper<RequestRoom>(){  
 	        @Override
 			public RequestRoom mapRow(ResultSet rs, int row) throws SQLException {  
 	            RequestRoom r=new RequestRoom();
@@ -60,12 +58,12 @@ public class RoomRequestDaoImpl implements RoomRequestDao{
 	            r.setStatus(rs.getString(11));
 	            return r;  
 	        }  
-	    },lId,date,"N");
+	    },lId,"N");
 	}
 
 	@Override
-	public List<RequestRoom> getRequestByUser(User user) {
-		return jdbcTemplateObject.query("select * from RequestRoom where userName = ? isArchived = ?",new RowMapper<RequestRoom>(){  
+	public List<RequestRoom> getRequestByUser(int userId) {
+		return jdbcTemplateObject.query("select * from RequestRoom where userId = ? isArchived = ? order by dateOfBooking Desc",new RowMapper<RequestRoom>(){  
 	        @Override
 			public RequestRoom mapRow(ResultSet rs, int row) throws SQLException {  
 	        	RequestRoom r=new RequestRoom();
@@ -86,7 +84,7 @@ public class RoomRequestDaoImpl implements RoomRequestDao{
 	            r.setStatus(rs.getString(11));
 	            return r;   
 	        }  
-	    },user.getUserName(),"N");
+	    },userId,"N");
 	}
 	@Override
 	public void rejectRequest(String remarkByAdmin, int requestId) {

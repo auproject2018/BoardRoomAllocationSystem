@@ -1,6 +1,5 @@
 package com.boardroomproject.services;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +30,14 @@ public class RequestRoomService implements IRequestRoomService {
 	}
 
 	@Override
-	public List<RequestRoom> getRequestByDateNLocation(int lId, Date date) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RequestRoom> getRequestByLocation(int lId) {
+		return roomRequestDao.getRequestByLocation(lId);
 	}
 
 	@Override
 	public List<RequestRoom> getRequestByUser(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return roomRequestDao.getRequestByUser(userId);
 	}
 
-	@Override
-	public List<RequestRoom> getRequestByStatusNLocation(int lId, String status) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

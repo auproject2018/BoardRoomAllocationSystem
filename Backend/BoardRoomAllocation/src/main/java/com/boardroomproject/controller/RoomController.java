@@ -31,7 +31,7 @@ public class RoomController {
 	    public ResponseEntity<Integer> deleteRoom(@PathVariable("rId") int rId) {
 	       
 	       roomService.deleteRoom(rId);
-	        return new ResponseEntity<Integer>(HttpStatus.NO_CONTENT);
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	    }
 	 
 	 @RequestMapping(value = "/{lId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
