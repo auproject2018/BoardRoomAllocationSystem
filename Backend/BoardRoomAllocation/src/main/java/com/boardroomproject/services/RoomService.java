@@ -37,4 +37,8 @@ public class RoomService implements IRoomService {
 		return roomDao.getRoomAvaiblity(requestRoom);
 	}
 
+	public Room getRoomById(int rId) {
+		return roomDao.getRoomById(rId);
+	}
+
 }

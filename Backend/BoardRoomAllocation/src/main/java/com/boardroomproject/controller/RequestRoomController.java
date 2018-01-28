@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +23,13 @@ public class RequestRoomController {
 
 	@Autowired
 	RequestRoomService requestRoomService;
+	
+	@Autowired
+	RoomService roomService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ResponseEntity<Void> createRequest(@RequestBody RequestRoom requestRoom) {
-		RoomService roomService = new RoomService();
+		
 		if(roomService.getRoomAvaiblity(requestRoom)){
 			requestRoomService.createRequest(requestRoom);
 			return new ResponseEntity<>(HttpStatus.CREATED);
@@ -41,18 +45,18 @@ public class RequestRoomController {
 	 }
 	
 	@RequestMapping(value = "/reject/{requestId}", method = RequestMethod.PUT)
-    public void rejectRequest(@PathVariable("requestId") int requestId,@RequestBody String remarkByAdmin) {
-	 requestRoomService.rejectRequest(remarkByAdmin, requestId);
+    public void rejectRequest(@PathVariable("requestId") int requestId) {
+	 requestRoomService.rejectRequest(requestId);
 	}
 	
 	 @RequestMapping(value = "/{lId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	    public List<RequestRoom>getRequestByDateNLocation(@PathVariable("lId") int lId,@PathVariable("date") Date date) {
-	       return requestRoomService.getRequestByLocation(lId, date);
+	    public List<RequestRoom>getRequestByLocation(@PathVariable("lId") int lId) {
+	       return requestRoomService.getRequestByLocation(lId);
 	        
 	    }
 	 
-	 @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	    public List<RequestRoom>getPendingRequest(@PathVariable("userId") int userId) {
+	 @RequestMapping(value = "user/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    public List<RequestRoom>getRequestByUserId(@PathVariable("userId") int userId) {
 	       return requestRoomService.getRequestByUser(userId);
 	   }
 }

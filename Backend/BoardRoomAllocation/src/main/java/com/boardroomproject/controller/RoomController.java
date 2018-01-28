@@ -40,4 +40,10 @@ public class RoomController {
 	       return roomService.getRoomByLocation(lId);
 	        
 	    }
+	 
+	 @RequestMapping(value = "roomId/{rId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    public Room getRoomById(@PathVariable("rId") int rId) {
+	       
+	       return roomService.getRoomById(rId);        
+	    }
 }

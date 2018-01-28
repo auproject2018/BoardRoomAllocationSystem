@@ -25,8 +25,8 @@ public class RequestRoomService implements IRequestRoomService {
 	}
 
 	@Override
-	public void rejectRequest(String remarkByAdmin, int requestId) {
-		roomRequestDao.rejectRequest(remarkByAdmin, requestId);
+	public void rejectRequest(int requestId) {
+		roomRequestDao.rejectRequest(requestId);
 	}
 
 	@Override

@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao{
 	}
 	@Override
 	public User getUserById(int userId) {
-		String checkExist = "select 1 from user where userId  = ? and isArchived = ?";
+		String checkExist = "select * from user where userId  = ? and isArchived = ?";
 		return jdbcTemplateObject.queryForObject(checkExist, new Object[]{userId,"N"},new BeanPropertyRowMapper<User>(User.class));
 	}
 	@Override

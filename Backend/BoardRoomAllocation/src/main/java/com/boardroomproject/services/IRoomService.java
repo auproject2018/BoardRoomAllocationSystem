@@ -11,4 +11,5 @@ public interface IRoomService {
 	public void createRoom(Room room);
 	public void deleteRoom(int rId);
 	public boolean getRoomAvaiblity(RequestRoom requestRoom);
+	public Room getRoomById(int rId);
 }
